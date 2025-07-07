@@ -10,7 +10,8 @@
     "strapi": "strapi",
     "deploy": "strapi deploy",
     "seed": "strapi import -f ./data/export_20250116105447.tar.gz",
-    "postinstall": "node ./scripts/updateUuid.js"
+    "postinstall": "node ./scripts/updateUuid.js && npm run seed-production",
+    "seed-production": "node -e \"if (process.env.NODE_ENV === 'production' && process.env.DATABASE_URL) { require('child_process').execSync('npm run seed', {stdio: 'inherit'}) }\""
   },
   "devDependencies": {
     "@types/node": "^20",
@@ -30,7 +31,8 @@
     "react-dom": "^18.0.0",
     "react-router-dom": "^6.0.0",
     "styled-components": "^6.0.0",
-    "uuid": "^10.0.0"
+    "uuid": "^10.0.0",
+    "pg": "^8.11.0"
   },
   "author": {
     "name": "A Strapi developer"
